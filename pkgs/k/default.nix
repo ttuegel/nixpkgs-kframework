@@ -6,14 +6,19 @@
 
   makeWrapper,
 
-  flex, git, gmp, mpfr, pkgconfig, python3, opam, ocaml, ocamlPackages, z3
+  flex, git, gmp, mpfr, pkgconfig, python3, ocamlPackages, z3
 }:
+
+let
+  inherit (ocamlPackages)
+    ocaml findlib;
+in
 
 let
   # PATH used at runtime
   binPath =
     lib.makeBinPath [
-      flex z3 gmp mpfr pkgconfig python3 opam ocaml ocamlPackages.findlib
+      flex z3 gmp mpfr pkgconfig python3 ocaml findlib
     ];
 
   /*
@@ -70,6 +75,11 @@ let
 
       postInstall = ''
         cp -r k-distribution/target/release/k/{bin,include,lib} $out/
+
+        rm "$out/bin/k-configure-opam"
+        rm "$out/bin/k-configure-opam-dev"
+        rm "$out/bin/kserver-opam"
+        rm -fr "$out/lib/opam"
 
         for prog in $out/bin/*; do
           wrapProgram $prog \
