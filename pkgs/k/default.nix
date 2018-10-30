@@ -6,7 +6,7 @@
 
   makeWrapper,
 
-  flex, git, gmp, mpfr, pkgconfig, python3, ocamlPackages, z3
+  flex, gcc, git, gmp, jdk, mpfr, pkgconfig, python3, ocamlPackages, z3
 }:
 
 let
@@ -18,7 +18,9 @@ let
   # PATH used at runtime
   binPath =
     lib.makeBinPath [
-      flex z3 gmp mpfr pkgconfig python3 ocaml findlib
+      flex gcc gmp jdk mpfr pkgconfig python3 z3
+      # OCaml packages
+      ocaml findlib
     ];
 
   /*
