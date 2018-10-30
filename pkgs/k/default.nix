@@ -22,17 +22,20 @@ let
       nix-prefetch-git https://github.com/kframework/k >./src.json
     ```
    */
-  src = lib.importJSON ./src.json;
+  srcJSON = lib.importJSON ./src.json;
+
   # Abbreviated Git revision
-  shortRev = lib.substring 0 7 src.rev;
+  shortRev = lib.substring 0 7 srcJSON.rev;
+
+  src = fetchzip {
+    url = srcJSON.url + "/archive/${srcJSON.rev}.tar.gz";
+    inherit (srcJSON) sha256;
+  };
 
   drvs =
     mavenix {
       name = "k-1.0-${shortRev}";
-      src = fetchzip {
-        url = src.url + "/archive/${src.rev}.tar.gz";
-        inherit (src) sha256;
-      };
+      inherit src;
 
       infoFile = ./mavenix-info.json;
 
@@ -73,6 +76,14 @@ let
             --prefix PATH : ${binPath}
         done
       '';
+
+      passthru = {
+        ocamlPatches = {
+          "4.06.1" = [
+            "${src}/k-distribution/src/main/scripts/lib/opam/compilers/4.06.1/4.06.1+k/files/opam-compiler.patch"
+          ];
+        };
+      };
 
       # settings = ./settings.xml;
       # drvs = [ ];

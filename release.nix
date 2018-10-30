@@ -11,5 +11,5 @@ in
 
 {
   inherit (pkgs)
-    k;
+    k ocamlPackages;
 }
