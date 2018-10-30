@@ -11,7 +11,7 @@
 
 let
   inherit (ocamlPackages)
-    ocaml findlib;
+    ocaml findlib mlgmp uuidm zarith;
 in
 
 let
@@ -66,7 +66,16 @@ let
         }
       ];
 
-      buildInputs = [ git makeWrapper ];
+      buildInputs = [
+        git makeWrapper
+
+        # OCaml packages
+        ocaml
+        findlib  # Setup hook sets OCAMLPATH
+        mlgmp
+        uuidm
+        zarith
+      ];
 
       doCheck = false;
 
@@ -85,13 +94,17 @@ let
 
         for prog in $out/bin/*; do
           wrapProgram $prog \
-            --prefix PATH : ${binPath}
+            --prefix PATH : ${binPath} \
+            --prefix OCAMLPATH : "''${OCAMLPATH:?}"
         done
       '';
 
       passthru = {
-        ocamlPatches = {
-          "4.06.1" = [
+        patches = {
+          mlgmp = [
+            "${src}/k-distribution/src/main/scripts/lib/opam/packages/mlgmp/mlgmp.20150824/files/patchfile"
+          ];
+          ocaml = [
             "${src}/k-distribution/src/main/scripts/lib/opam/compilers/4.06.1/4.06.1+k/files/opam-compiler.patch"
           ];
         };

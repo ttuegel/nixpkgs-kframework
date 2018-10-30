@@ -7,18 +7,25 @@ self: super:
 
   ocamlPackages =
     let
+      inherit (self) k;
       pkgs =
         self.ocaml-ng.mkOcamlPackages
           (self.callPackage
             (import ./pkgs/development/compilers/ocaml/4.06.nix
               {
                 flavor = "+k";
-                patches = self.k.ocamlPatches."4.06.1";
+                patches = k.patches.ocaml;
               }
             )
             {}
           )
-          (self: super: {});
+          (self: super:
+            {
+              mlgmp = (self.callPackage ./pkgs/development/ocaml-modules/mlgmp {}).overrideAttrs (attrs: {
+                patches = k.patches.mlgmp;
+              });
+            }
+          );
     in
       self.recurseIntoAttrs pkgs;
 }
