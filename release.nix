@@ -9,7 +9,12 @@ let
   };
 in
 
+# The set of all packages provided by this overlay, for testing purposes; does
+# not include transitive dependencies provided by Nixpkgs, which should be
+# tested upstream.
 {
-  inherit (pkgs)
-    k ocamlPackages;
+  inherit (pkgs) k;
+  ocamlPackages = pkgs.recurseIntoAttrs {
+    inherit (pkgs.ocamlPackages) ocaml mlgmp;
+  };
 }
