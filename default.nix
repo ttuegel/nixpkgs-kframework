@@ -3,9 +3,10 @@ self: super:
 {
   k = self.callPackage ./pkgs/k {
     mavenix = self.callPackage ./pkgs/k/mavenix.nix {};
+    ocamlPackages = self.ocamlPackages_4_06_k;
   };
 
-  ocamlPackages =
+  ocamlPackages_4_06_k =
     let
       inherit (self) k;
       pkgs =

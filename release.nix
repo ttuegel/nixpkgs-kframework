@@ -14,7 +14,7 @@ in
 # tested upstream.
 {
   inherit (pkgs) k;
-  ocamlPackages = pkgs.recurseIntoAttrs {
-    inherit (pkgs.ocamlPackages) ocaml mlgmp;
+  ocamlPackages_4_06_k = pkgs.recurseIntoAttrs {
+    inherit (pkgs.ocamlPackages_4_06_k) ocaml mlgmp;
   };
 }
