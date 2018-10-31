@@ -31,4 +31,6 @@ self: super:
           );
     in
       self.recurseIntoAttrs pkgs;
+
+  secp256k1 = self.callPackage ./pkgs/development/libraries/secp256k1 {};
 }
