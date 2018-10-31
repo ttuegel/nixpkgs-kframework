@@ -18,7 +18,9 @@ self: super:
                 patches = k.patches.ocaml;
               }
             )
-            {}
+            {
+              useX11 = false;
+            }
           )
           (self: super:
             {
