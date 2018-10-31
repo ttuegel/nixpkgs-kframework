@@ -22,11 +22,9 @@ self: super:
               useX11 = false;
             }
           )
-          (self: super:
+          (import ./pkgs/development/ocaml-modules
             {
-              mlgmp = (self.callPackage ./pkgs/development/ocaml-modules/mlgmp {}).overrideAttrs (attrs: {
-                patches = k.patches.mlgmp;
-              });
+              inherit (self) k secp256k1;
             }
           );
     in

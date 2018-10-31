@@ -15,6 +15,8 @@ in
 {
   inherit (pkgs) k secp256k1;
   ocamlPackages_4_06_k = pkgs.recurseIntoAttrs {
-    inherit (pkgs.ocamlPackages_4_06_k) ocaml mlgmp;
+    inherit (pkgs.ocamlPackages_4_06_k)
+      base bn128 configurator mlgmp ocaml ocaml-protoc ppx_deriving_protobuf
+      secp256k1 stdio;
   };
 }
