@@ -7,11 +7,16 @@ Nixpkgs overlay for K Framework packages
 
 ### Standalone
 
-To build standalone packages, or to test the overlay against the pinned version
-of Nixpkgs, build from `release.nix`:
+To build standalone packages, select an attribute from `release.nix`:
 
 ```.sh
-nix-build release.nix -A k
+nix build -f release.nix k
+```
+
+To build all the packages this overlay provides (e.g. for testing):
+
+```.sh
+nix build -f release.nix
 ```
 
 ### As an overlay
