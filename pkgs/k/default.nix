@@ -68,6 +68,10 @@ let
 
       buildInputs = [
         git makeWrapper
+      ];
+
+      propagatedBuildInputs = [
+        flex gcc gmp jdk mpfr pkgconfig python3 z3
 
         # OCaml packages
         ocaml
