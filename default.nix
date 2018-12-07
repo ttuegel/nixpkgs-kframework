@@ -1,6 +1,15 @@
 self: super:
 
 {
+  haskell = super.haskell // {
+    packages = super.haskell.packages // {
+      stackage =
+        super.callPackage ./pkgs/development/haskell-modules/stackage {};
+    };
+  };
+
+  haskellPackages = self.haskell.packages.stackage.lts_12_21;
+
   k = self.callPackage ./pkgs/k {
     mavenix = self.callPackage ./pkgs/k/mavenix.nix {};
     ocamlPackages = self.ocamlPackages_4_06_k;
