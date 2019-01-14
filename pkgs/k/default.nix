@@ -31,8 +31,7 @@ let
    */
   srcJSON = lib.importJSON ./src.json;
 
-  # Abbreviated Git revision
-  shortRev = lib.substring 0 7 srcJSON.rev;
+  inherit (lib.importJSON ./version.json) version abbrv;
 
   src = fetchzip {
     url = srcJSON.url + "/archive/${srcJSON.rev}.tar.gz";
@@ -41,7 +40,7 @@ let
 
   drvs =
     mavenix {
-      name = "k-1.0-${shortRev}";
+      name = "k-nightly-${version}-${abbrv}";
       inherit src;
 
       infoFile = ./mavenix-info.json;
