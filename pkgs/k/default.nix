@@ -31,7 +31,7 @@ let
    */
   srcJSON = lib.importJSON ./src.json;
 
-  inherit (lib.importJSON ./version.json) version abbrv;
+  inherit (lib.importJSON ./name.json) pname tag;
 
   src = fetchzip {
     url = srcJSON.url + "/archive/${srcJSON.rev}.tar.gz";
@@ -40,7 +40,7 @@ let
 
   drvs =
     mavenix {
-      name = "k-nightly-${version}-${abbrv}";
+      name = "${pname}-${tag}";
       inherit src;
 
       infoFile = ./mavenix-info.json;

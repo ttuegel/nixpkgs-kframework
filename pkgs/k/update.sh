@@ -6,6 +6,7 @@ if test (git status --porcelain | wc -l) -ne 0
     exit 1
 end
 
+jq -r .pname <name.json | read -l pname
 jq -r .rev <src.json | read -l rev
 jq -r .url <src.json | read -l url
 
@@ -15,20 +16,10 @@ function git_tag
     git --git-dir=$git_dir tag --list --sort=creatordate $argv
 end
 
-function git_version -d "Construct version based on Git commit"
-    git \
-        --git-dir=$git_dir log --max-count=1 \
-        --pretty=format:'{"version":"%ad","abbrv":"%h"}' \
-        --date=format:%Y%m%d.%H%M \
-        $argv
-end
-
 git_tag --contains=$rev | tail --lines=+2 | while read -l tag
-    git_version $tag >version.json
+    echo -s '{"pname":"' $pname '","tag":"' $tag '"}' >name.json
     nix-prefetch-git --url $url --rev $tag >src.json
-    jq -r .version <version.json | read -l version
-    jq -r .abbrv <version.json | read -l abbrv
-    git add src.json version.json
-    git commit -m 'k-nightly-'$version'-'$abbrv
+    git add src.json name.json
+    git commit -m $pname'-'$tag
 end
 
