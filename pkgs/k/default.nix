@@ -1,5 +1,5 @@
 {
-  lib, fetchzip,
+  lib, fetchzip, fetchurl,
 
   # Parent should use callPackage to import mavenix
   mavenix,
@@ -87,6 +87,11 @@ let
         patchShebangs k-distribution/src/main/scripts/lib
       '';
 
+      buildFlags = [
+        "-DskipTests=true"
+        "-pl kore,kernel,ktree,java-backend,haskell-backend,ocaml-backend,k-distribution"
+      ];
+
       postInstall = ''
         cp -r k-distribution/target/release/k/{bin,include,lib} $out/
 
@@ -105,10 +110,20 @@ let
       passthru = {
         patches = {
           mlgmp = [
-            "${src}/k-distribution/src/main/scripts/lib/opam/packages/mlgmp/mlgmp.20150824/files/patchfile"
+            (let inherit (lib.importJSON ./mlgmp.patch.json) file rev sha256; in
+              fetchurl {
+                url = "https://raw.githubusercontent.com/kframework/k/${rev}/${file}";
+                inherit sha256;
+              }
+            )
           ];
           ocaml = [
-            "${src}/k-distribution/src/main/scripts/lib/opam/compilers/4.06.1/4.06.1+k/files/opam-compiler.patch"
+            (let inherit (lib.importJSON ./ocaml.patch.json) file rev sha256; in
+              fetchurl {
+                url = "https://raw.githubusercontent.com/kframework/k/${rev}/${file}";
+                inherit sha256;
+              }
+            )
           ];
         };
       };

@@ -15,13 +15,30 @@ git clone $url $src
 set git_dir $src'/.git'
 
 function git_tag
-    git --git-dir=$git_dir tag --list --sort=creatordate $argv
+    git --git-dir=$git_dir --work-tree=$src tag --list --sort=creatordate $argv
+end
+
+function git_log_1
+    git --git-dir=$git_dir --work-tree=$src log --max-count=1 --format=%H $argv
+end
+
+function nix_sha256
+    nix-hash --flat --base32 --type sha256 $argv
 end
 
 git_tag --contains=$rev | tail --lines=+2 | while read -l tag
     echo -s '{"pname":"' $pname '","tag":"' $tag '"}' >name.json
     nix-prefetch-git --url $url --rev $tag >src.json
-    git add src.json name.json
+    for patch_json in *.patch.json
+        jq -r .file <$patch_json | read -l file
+        echo -s >$patch_json \
+            '{' \
+            '"file":"' $file '",' \
+            '"rev":"' (git_log_1 $tag -- $file) '",' \
+            '"sha256":"' (nix_sha256 $src/$file) '"' \
+            '}'
+    end
+    git add src.json name.json *.patch.json
     git commit -m $pname'-'$tag
 end
 

@@ -186,7 +186,7 @@ in {
       runHook preBuild
 
       mvn --offline -B -version -Dmaven.repo.local=${repo}
-      mvn --offline -B --settings ${settings} -Dmaven.repo.local=${repo} -nsu package -DskipTests=true -Dmaven.test.skip=true
+      mvn --offline -B --settings ${settings} -Dmaven.repo.local=${repo} -nsu package $buildFlags
 
       runHook postBuild
     '';
