@@ -10,7 +10,9 @@ jq -r .pname <name.json | read -l pname
 jq -r .rev <src.json | read -l rev
 jq -r .url <src.json | read -l url
 
-set git_dir $argv[1]'/.git'
+set src (mktemp -d)
+git clone $url $src
+set git_dir $src'/.git'
 
 function git_tag
     git --git-dir=$git_dir tag --list --sort=creatordate $argv
