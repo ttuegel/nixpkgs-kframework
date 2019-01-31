@@ -29,27 +29,27 @@ self: super:
 
   ocamlPackages_4_06_k =
     let
-      inherit (self) k;
-      pkgs =
-        self.ocaml-ng.mkOcamlPackages
-          (self.callPackage
-            (import ./pkgs/development/compilers/ocaml/4.06.nix
-              {
-                flavor = "+k";
-                patches = k.patches.ocaml;
-              }
-            )
+      ocaml =
+        self.callPackage
+          (import ./pkgs/development/compilers/ocaml/4.06.nix
             {
-              useX11 = false;
+              flavor = "+k";
+              patches = self.k.patches.ocaml;
             }
           )
-          (import ./pkgs/development/ocaml-modules
-            {
-              inherit (self) k secp256k1;
-            }
-          );
+          {
+            useX11 = false;
+            xproto = self.xorg.xorgproto;
+          };
+      addOcamlCompiler = _: _: { inherit ocaml; };
+      ocamlPackages_4_06_k =
+        self.ocaml-ng.ocamlPackages_4_06.overrideScope' addOcamlCompiler;
+      addOcamlModules =
+        import ./pkgs/development/ocaml-modules {
+          inherit (self) k secp256k1;
+        };
     in
-      self.recurseIntoAttrs pkgs;
+      ocamlPackages_4_06_k.overrideScope' addOcamlModules;
 
   secp256k1 = self.callPackage ./pkgs/development/libraries/secp256k1 {};
 }
