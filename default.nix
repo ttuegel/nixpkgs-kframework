@@ -10,8 +10,22 @@ self: super:
 
   haskellPackages = self.haskell.packages.stackage.lts_12_21;
 
-  k = self.callPackage ./pkgs/k {
-    mavenix = self.callPackage ./pkgs/k/mavenix.nix {};
+  callMavenPackage = path: extraArgs:
+    let
+      mavenix =
+        let
+          inherit (self) lib;
+          name = baseNameOf path;
+          isNix = lib.hasSuffix ".nix" path;
+          dir = if isNix then dirOf path else path;
+        in
+          self.callPackage (dir + "/mavenix.nix") {};
+      args = extraArgs // { inherit mavenix; };
+      drvs = self.callPackage path args;
+    in
+      drvs.build;
+
+  k = self.callMavenPackage ./pkgs/k {
     ocamlPackages = self.ocamlPackages_4_06_k;
   };
 
