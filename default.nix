@@ -8,8 +8,6 @@ self: super:
     };
   };
 
-  haskellPackages = self.haskell.packages.stackage.lts_12_21;
-
   callMavenPackage = path: extraArgs:
     let
       mavenix =
