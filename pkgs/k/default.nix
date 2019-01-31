@@ -90,7 +90,8 @@ mavenix {
 
   buildFlags = [
     "-DskipTests"
-    "-pl kore,kernel,ktree,java-backend,haskell-backend,ocaml-backend,k-distribution"
+    "-Dllvm.backend.skip"
+    "-Dhaskell.backend.skip"
   ];
 
   postInstall = ''
