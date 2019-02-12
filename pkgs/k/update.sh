@@ -27,6 +27,14 @@ function nix_sha256
 end
 
 git_tag --contains=$rev | tail --lines=+2 | while read -l tag
+    # Only create new versions for the 'nightly-*' tags.
+    switch $tag
+    case 'nightly-*'
+        true
+    case '*'
+        continue
+    end
+
     echo -s '{"pname":"' $pname '","tag":"' $tag '"}' >name.json
     nix-prefetch-git --url $url --rev $tag >src.json
     for patch_json in *.patch.json
