@@ -8,23 +8,23 @@ self: super:
     };
   };
 
-  callMavenPackage = path: extraArgs:
+  mavenix =
     let
-      mavenix =
-        let
-          inherit (self) lib;
-          name = baseNameOf path;
-          isNix = lib.hasSuffix ".nix" path;
-          dir = if isNix then dirOf path else path;
-        in
-          self.callPackage (dir + "/mavenix.nix") {};
-      args = extraArgs // { inherit mavenix; };
-      drvs = self.callPackage path args;
+      src = fetchTarball {
+        url = "https://github.com/icetan/mavenix/archive/v1.0.0.tar.gz";
+        sha256 = "1lz5f77clvk0fj4qh2352w6n1vcxz55v2d4sw0mb3q4wdmw0aqf1";
+      };
     in
-      drvs.build;
+      import src { pkgs = self; };
 
-  k = self.callMavenPackage ./pkgs/k {
+  mvnix = self.mavenix.cli;
+
+  k = import ./pkgs/k {
+    inherit (self) lib fetchurl fetchzip;
+    inherit (self) makeWrapper;
+    inherit (self) flex gcc git gmp jdk mpfr pkgconfig python3 z3;
     ocamlPackages = self.ocamlPackages_4_06_k;
+    inherit (self) mavenix;
   };
 
   ocamlPackages_4_06_k =
