@@ -36,7 +36,7 @@ git_tag --contains=$rev | tail --lines=+2 | while read -l tag
     end
 
     echo -s '{"pname":"' $pname '","tag":"' $tag '"}' >name.json
-    nix-prefetch-git --url $url --rev $tag >src.json
+    nix-prefetch-git --url $url --rev $tag --fetch-submodules >src.json
     for patch_json in *.patch.json
         jq -r .file <$patch_json | read -l file
         echo -s >$patch_json \
