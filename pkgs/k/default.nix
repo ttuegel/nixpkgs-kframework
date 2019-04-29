@@ -1,5 +1,5 @@
 {
-  lib, fetchzip, fetchurl,
+  lib, fetchgit, fetchurl,
 
   # Parent should use callPackage to import mavenix
   mavenix,
@@ -33,9 +33,8 @@ let
 
   inherit (lib.importJSON ./name.json) pname tag;
 
-  src = fetchzip {
-    url = srcJSON.url + "/archive/${srcJSON.rev}.tar.gz";
-    inherit (srcJSON) sha256;
+  src = fetchgit {
+    inherit (srcJSON) url rev sha256 fetchSubmodules;
   };
 
 in
