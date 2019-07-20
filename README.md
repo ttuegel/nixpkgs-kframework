@@ -1,6 +1,13 @@
 # nixpkgs-kframework
 
-Nixpkgs overlay for K Framework packages
+Nixpkgs overlay for [K Framework](https://github.com/kframework) packages.
+
+This overlay provides Nix expressions for these packages:
+
+- [K](http://www.kframework.org) 5
+- OCaml 4.06.1+k
+- Z3 4.6.0
+- Z3 4.8.4
 
 
 ## Usage
