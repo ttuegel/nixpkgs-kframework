@@ -8,7 +8,7 @@ in
 # not include transitive dependencies provided by Nixpkgs, which should be
 # tested upstream.
 {
-  inherit (nixpkgs) niv k mvnix secp256k1 z3 z3_6_0 z3_4_8;
+  inherit (nixpkgs) niv k mvnix secp256k1 z3;
   haskellPackages = nixpkgs.haskell.packages.stackage.lts_12_21;
   ocamlPackages_4_06_k = nixpkgs.recurseIntoAttrs {
     inherit (nixpkgs.ocamlPackages_4_06_k)

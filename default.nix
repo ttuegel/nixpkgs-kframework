@@ -52,8 +52,4 @@ self: super:
       ocamlPackages_4_06_k.overrideScope' addOcamlModules;
 
   secp256k1 = self.callPackage ./pkgs/development/libraries/secp256k1 {};
-
-  z3 = self.z3_6_0;
-  z3_6_0 = self.callPackage ./pkgs/z3/4.6.nix { python = self.python2; };
-  z3_4_8 = self.callPackage ./pkgs/z3/4.8.nix { python = self.python2; };
 }
