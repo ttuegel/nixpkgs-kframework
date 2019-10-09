@@ -1,7 +1,7 @@
 {
   "url": "https://github.com/kframework/k",
-  "rev": "b1e46e5f80a5a289ec3520fc79d545eb9ce50cac",
-  "date": "2019-10-07T14:55:37-05:00",
-  "sha256": "1kz8racjcw9cdaz6gvlyl450irfsjic9z96j43jbqr0qhkilqk8p",
+  "rev": "a7b9da7defc8af7b0dbca37e3e23eec6c985e79d",
+  "date": "2019-10-09T16:01:47-05:00",
+  "sha256": "0shvnl71xd4p14w6gf7l9khwqby00ig2wqy6w7d9v83mv375v08d",
   "fetchSubmodules": true
 }
