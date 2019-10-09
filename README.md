@@ -29,6 +29,12 @@ nix build -f release.nix
 The [Nixpkgs manual](https://nixos.org/nixpkgs/manual/#chap-overlays) describes
 how to use overlays with your system or project configuration.
 
+### Binary cache
+
+A binary cache for the `x86_64-linux` platform is updated automatically.
+Please see [ttuegel.cachix.org](https://ttuegel.cachix.org/) for instructions to use the cache.
+
+
 ## Notes
 
 ### Updating K
