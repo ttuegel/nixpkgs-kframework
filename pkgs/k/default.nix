@@ -66,6 +66,7 @@ mavenix.buildMaven {
   #
   MAVEN_OPTS = [
     "-DskipTests=true"
+    "-DskipKTest=true"
     "-Dllvm.backend.skip=true"
     "-Dhaskell.backend.skip=true"
   ];
