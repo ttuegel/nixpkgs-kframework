@@ -1,17 +1,4 @@
 {
-    "mavenix": {
-        "branch": "master",
-        "description": "Deterministic Maven builds using Nix?",
-        "homepage": "",
-        "owner": "icetan",
-        "repo": "mavenix",
-        "rev": "8358047a99f7b553b6afa190d6a9e015aa5d82b7",
-        "sha256": "10jyfrc2s45ylff3bw9abvsanrn0xcci8v07b5jn7ibx4y8cwi4c",
-        "type": "tarball",
-        "url": "https://github.com/icetan/mavenix/archive/8358047a99f7b553b6afa190d6a9e015aa5d82b7.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz",
-        "version": "v2.3.0"
-    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",

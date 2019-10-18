@@ -1,10 +1,5 @@
 self: super:
 
-let
-  sources = import ./nix/sources.nix;
-  mavenix = import sources."mavenix" { pkgs = self; };
-in
-
 {
   haskell = super.haskell // {
     packages = super.haskell.packages // {
@@ -13,7 +8,15 @@ in
     };
   };
 
-  inherit mavenix;
+  mavenix =
+    let
+      src = fetchTarball {
+        url = "https://github.com/icetan/mavenix/archive/v1.0.0.tar.gz";
+        sha256 = "1lz5f77clvk0fj4qh2352w6n1vcxz55v2d4sw0mb3q4wdmw0aqf1";
+      };
+    in
+      import src { pkgs = self; };
+
   mvnix = self.mavenix.cli;
 
   k = import ./pkgs/k {
