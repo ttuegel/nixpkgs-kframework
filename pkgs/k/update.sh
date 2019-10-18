@@ -48,5 +48,8 @@ git_tag --contains=$rev | tail --lines=+2 | while read -l tag
     end
     git add src.json name.json *.patch.json
     git commit -m $pname'-'$tag
+
+    # Increment version by one release only
+    break
 end
 
