@@ -12,7 +12,7 @@ in
   haskellPackages = nixpkgs.haskell.packages.stackage.lts_12_21;
   ocamlPackages_4_06_k = nixpkgs.recurseIntoAttrs {
     inherit (nixpkgs.ocamlPackages_4_06_k)
-      base bn128 configurator mlgmp ocaml ocaml-protoc ppx_deriving_protobuf
-      secp256k1 stdio;
+      base bn128 configurator findlib mlgmp ocaml ocaml-protoc
+      ppx_deriving_protobuf secp256k1 stdio uuidm zarith;
   };
 }
