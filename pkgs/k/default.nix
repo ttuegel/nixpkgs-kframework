@@ -95,24 +95,16 @@ mavenix.buildMaven {
   '';
 
   passthru = {
-    patches = {
-      mlgmp = [
-        (let inherit (lib.importJSON ./mlgmp.patch.json) file rev sha256; in
-          fetchurl {
-            url = "https://raw.githubusercontent.com/kframework/k/${rev}/${file}";
-            inherit sha256;
-          }
-        )
-      ];
-      ocaml = [
-        (let inherit (lib.importJSON ./ocaml.patch.json) file rev sha256; in
-          fetchurl {
-            url = "https://raw.githubusercontent.com/kframework/k/${rev}/${file}";
-            inherit sha256;
-          }
-        )
-      ];
-    };
+    patches =
+      let opam = "k-distribution/src/main/scripts/lib/opam";
+      in {
+        mlgmp = [
+          "${src}/${opam}/packages/mlgmp/mlgmp.20150824/files/patchfile"
+        ];
+        ocaml = [
+          "${src}/${opam}/compilers/4.06.1/4.06.1+k/files/opam-compiler.patch"
+        ];
+      };
   };
 
   # Add extra maven dependencies which might not have been picked up
