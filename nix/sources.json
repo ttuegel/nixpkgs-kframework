@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "ttuegel",
         "repo": "mavenix",
-        "rev": "26c3870c4743ea4d666617643993459412dba8eb",
-        "sha256": "0xqgjs7k9d3h4hgkfjsbdmylv9hl6133z085y5xf8l0a31gvdv65",
+        "rev": "34233ce90c1ba8c72096971f23c92ac2f586dc79",
+        "sha256": "03s0c72yyi42dv2lbfbyglyghci9q9nbhz4g9bi1di4yj6b538br",
         "type": "tarball",
-        "url": "https://github.com/ttuegel/mavenix/archive/26c3870c4743ea4d666617643993459412dba8eb.tar.gz",
+        "url": "https://github.com/ttuegel/mavenix/archive/34233ce90c1ba8c72096971f23c92ac2f586dc79.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz",
         "version": "v1.0.0"
     },
