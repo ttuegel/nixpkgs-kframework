@@ -1,5 +1,5 @@
 {
-  lib, fetchgit, fetchurl,
+  lib, fetchgit, fetchurl, writeText,
 
   # Parent should use callPackage to import mavenix
   mavenix,
@@ -42,7 +42,9 @@ in
 mavenix.buildMaven {
   name = "${pname}-${tag}";
   inherit src;
-  infoFile = ./mavenix.lock;
+  infoFile =
+    let roundtrip = file: builtins.toJSON (lib.importJSON file); in
+    writeText "mavenix.lock" (roundtrip ./mavenix.lock);
   doCheck = false;
 
   # Add build dependencies

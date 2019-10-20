@@ -17,7 +17,7 @@ in
   mvnix = self.mavenix.cli;
 
   k = import ./pkgs/k {
-    inherit (self) lib fetchurl fetchgit;
+    inherit (self) lib fetchurl fetchgit writeText;
     inherit (self) makeWrapper;
     inherit (self) flex gcc git gmp jdk mpfr pkgconfig python3 z3;
     ocamlPackages = self.ocamlPackages_4_06_k;
