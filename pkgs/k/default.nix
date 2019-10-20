@@ -42,9 +42,7 @@ in
 mavenix.buildMaven {
   name = "${pname}-${tag}";
   inherit src;
-  infoFile =
-    let roundtrip = file: builtins.toJSON (lib.importJSON file); in
-    writeText "mavenix.lock" (roundtrip ./mavenix.lock);
+  infoFile = ./mavenix.lock;
   doCheck = false;
 
   # Add build dependencies
