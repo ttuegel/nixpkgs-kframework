@@ -46,7 +46,7 @@ git_tag --contains=$rev | tail --lines=+2 | while read -l tag
             '"sha256":"' (nix_sha256 $src/$file) '"' \
             '}'
     end
-    git add src.json name.json *.patch.json
+    git add src.json name.json
     git commit -m $pname'-'$tag
 
     # Increment version by one release only
