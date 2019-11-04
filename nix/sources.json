@@ -1,14 +1,14 @@
 {
     "mavenix": {
-        "branch": "master",
+        "branch": "bug--maven-test-skip-exec",
         "description": "Deterministic Maven builds using Nix?",
         "homepage": "",
         "owner": "ttuegel",
         "repo": "mavenix",
-        "rev": "34233ce90c1ba8c72096971f23c92ac2f586dc79",
-        "sha256": "03s0c72yyi42dv2lbfbyglyghci9q9nbhz4g9bi1di4yj6b538br",
+        "rev": "46bf92065442fc5270055e45a37483f5618a290a",
+        "sha256": "0s6m78ny3nx4431lz2n5vd9vc0qnrhm2636a3grzdk797w2n68q9",
         "type": "tarball",
-        "url": "https://github.com/ttuegel/mavenix/archive/34233ce90c1ba8c72096971f23c92ac2f586dc79.tar.gz",
+        "url": "https://github.com/ttuegel/mavenix/archive/46bf92065442fc5270055e45a37483f5618a290a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz",
         "version": "v1.0.0"
     },
