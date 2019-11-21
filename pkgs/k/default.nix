@@ -37,10 +37,12 @@ let
     inherit (srcJSON) url rev sha256 fetchSubmodules;
   };
 
+  version = lib.concatStringsSep "-" ([ "5.0.0" ] ++ lib.tail (lib.splitString "-" tag));
+
 in
 
 mavenix.buildMaven {
-  name = "${pname}-${tag}";
+  name = "${pname}-${version}";
   inherit src;
   infoFile = ./mavenix.lock;
   doCheck = false;
