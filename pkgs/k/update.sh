@@ -27,9 +27,11 @@ function nix_sha256
 end
 
 git_tag --contains=$rev | tail --lines=+2 | while read -l tag
-    # Only create new versions for the 'nightly-*' tags.
+    # Only create new versions for the 'nightly-*' or 'v5.0.0-*' tags.
     switch $tag
     case 'nightly-*'
+        true
+    case 'v5.0.0-*'
         true
     case '*'
         continue
