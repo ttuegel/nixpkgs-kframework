@@ -14,12 +14,16 @@ set src (mktemp -d)
 git clone $url $src
 set git_dir $src'/.git'
 
+function git_
+   git --git-dir=$git_dir --work-tree=$src $argv
+end
+
 function git_tag
-    git --git-dir=$git_dir --work-tree=$src tag --list --sort=creatordate $argv
+    git_ tag --list --sort=creatordate $argv
 end
 
 function git_log_1
-    git --git-dir=$git_dir --work-tree=$src log --max-count=1 --format=%H $argv
+    git_ log --max-count=1 --format=%H $argv
 end
 
 function nix_sha256
