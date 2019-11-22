@@ -8,6 +8,7 @@ end
 
 jq -r .pname <name.json | read -l pname
 jq -r .tag <name.json | read -l old_tag
+jq -r .rev <src.json | read -l rev
 jq -r .url <src.json | read -l url
 
 set src (mktemp -d)
@@ -26,11 +27,15 @@ function git_log_1
     git_ log --max-count=1 --format=%H $argv
 end
 
+function git_show_ref
+    git_ show-ref -s $argv
+end
+
 function nix_sha256
     nix-hash --flat --base32 --type sha256 $argv
 end
 
-git_tag --contains=$old_tag | tail --lines=+2 | while read -l tag
+git_tag --contains=$rev | tail --lines=+2 | while read -l tag
     # Only create new versions for the 'nightly-*' or 'v5.0.0-*' tags.
     switch $tag
     case 'nightly-*'
@@ -55,7 +60,13 @@ git_tag --contains=$old_tag | tail --lines=+2 | while read -l tag
     git add src.json name.json *.patch.json
     git commit -m $pname'-'$tag
 
-    # Increment version by one release only
-    break
+
+    if test (git_show_ref $tag) = $rev
+        # This tag is a duplicate, keep going.
+        continue
+    else
+        # Increment version once only.
+        break
+    end
 end
 
