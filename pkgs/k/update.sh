@@ -7,7 +7,7 @@ if test (git status --porcelain | wc -l) -ne 0
 end
 
 jq -r .pname <name.json | read -l pname
-jq -r .rev <src.json | read -l rev
+jq -r .tag <name.json | read -l old_tag
 jq -r .url <src.json | read -l url
 
 set src (mktemp -d)
@@ -30,7 +30,7 @@ function nix_sha256
     nix-hash --flat --base32 --type sha256 $argv
 end
 
-git_tag --contains=$rev | tail --lines=+2 | while read -l tag
+git_tag --contains=$old_tag | tail --lines=+2 | while read -l tag
     # Only create new versions for the 'nightly-*' or 'v5.0.0-*' tags.
     switch $tag
     case 'nightly-*'
