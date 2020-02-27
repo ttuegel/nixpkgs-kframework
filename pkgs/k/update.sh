@@ -31,21 +31,15 @@ function git_show_ref
     git_ show-ref -s $argv
 end
 
+function git_rev_list
+    git_ rev-list --reverse $argv
+end
+
 function nix_sha256
     nix-hash --flat --base32 --type sha256 $argv
 end
 
-git_tag --contains=$rev | tail --lines=+2 | while read -l tag
-    # Only create new versions for the 'nightly-*' or 'v5.0.0-*' tags.
-    switch $tag
-    case 'nightly-*'
-        true
-    case 'v5.0.0-*'
-        true
-    case '*'
-        continue
-    end
-
+git_rev_list $rev..HEAD | while read -l tag
     echo -s '{"pname":"' $pname '","tag":"' $tag '"}' >name.json
     nix-prefetch-git --url $url --rev $tag --fetch-submodules >src.json
     for patch_json in *.patch.json
@@ -58,10 +52,9 @@ git_tag --contains=$rev | tail --lines=+2 | while read -l tag
             '}'
     end
     git add src.json name.json *.patch.json
-    git commit -m $pname'-'$tag
+    git commit -m (echo $pname $tag)
 
-
-    if test (git_show_ref $tag) = $rev
+    if test $tag = $rev
         # This tag is a duplicate, keep going.
         continue
     else
