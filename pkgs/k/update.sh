@@ -6,6 +6,8 @@ if test (git status --porcelain | wc -l) -ne 0
     exit 1
 end
 
+jq -r .owner <name.json | read -l owner
+jq -r .repo <name.json | read -l repo
 jq -r .pname <name.json | read -l pname
 jq -r .tag <name.json | read -l old_tag
 jq -r .rev <src.json | read -l rev
@@ -52,7 +54,7 @@ git_rev_list $rev..HEAD | while read -l tag
             '}'
     end
     git add src.json name.json *.patch.json
-    git commit -m (echo $pname $tag)
+    git commit -m (echo $owner'/'$repo $tag)
 
     if test $tag = $rev
         # This tag is a duplicate, keep going.
