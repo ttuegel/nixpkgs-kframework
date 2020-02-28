@@ -16,7 +16,7 @@ in
 
 let
   # PATH used at runtime
-  binPath =
+  hostPATH =
     lib.makeBinPath [
       flex gcc gmp jdk mpfr pkgconfig python3 z3
       # OCaml packages
@@ -37,7 +37,7 @@ let
     inherit (srcJSON) url rev sha256 fetchSubmodules;
   };
 
-  version = lib.concatStringsSep "-" ([ "5.0.0" ] ++ lib.tail (lib.splitString "-" tag));
+  version = "5.0.0-${lib.substring 0 8 tag}";
 
 in
 
@@ -91,7 +91,7 @@ mavenix.buildMaven {
 
     for prog in $out/bin/*; do
       wrapProgram $prog \
-        --prefix PATH : ${binPath} \
+        --prefix PATH : ${hostPATH} \
         --prefix OCAMLPATH : "''${OCAMLPATH:?}"
     done
   '';
