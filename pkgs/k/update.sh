@@ -6,8 +6,8 @@ if test (git status --porcelain | wc -l) -ne 0
     exit 1
 end
 
-jq -r .owner <name.json | read -l owner
-jq -r .repo <name.json | read -l repo
+jq -r .owner <repo.json | read -l owner
+jq -r .repo <repo.json | read -l repo
 jq -r .pname <name.json | read -l pname
 jq -r .tag <name.json | read -l old_tag
 jq -r .rev <src.json | read -l rev
