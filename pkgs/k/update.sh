@@ -65,3 +65,4 @@ git_rev_list $rev..HEAD | while read -l tag
     end
 end
 
+rm -fr $src
