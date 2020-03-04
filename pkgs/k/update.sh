@@ -13,8 +13,7 @@ jq -r .tag <name.json | read -l old_tag
 jq -r .rev <src.json | read -l rev
 jq -r .url <src.json | read -l url
 
-set src (mktemp -d)
-git clone $url $src
+set src $argv[1]
 set git_dir $src'/.git'
 
 function git_
@@ -64,5 +63,3 @@ git_rev_list $rev..HEAD | while read -l tag
         break
     end
 end
-
-rm -fr $src
