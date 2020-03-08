@@ -10,7 +10,7 @@ in
   mvnix = self.mavenix.cli;
 
   kframework = {
-    k = import ./pkgs/k {
+    k = import ./pkgs/kframework/k {
       inherit (self) lib fetchurl fetchgit writeText;
       inherit (self) makeWrapper;
       inherit (self) flex gcc git gmp jdk mpfr pkgconfig python3 z3;
