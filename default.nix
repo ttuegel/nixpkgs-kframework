@@ -5,13 +5,6 @@ let
 in
 
 {
-  haskell = super.haskell // {
-    packages = super.haskell.packages // {
-      stackage =
-        super.callPackage ./pkgs/development/haskell-modules/stackage {};
-    };
-  };
-
   mavenix = import sources."mavenix" { pkgs = self; };
 
   mvnix = self.mavenix.cli;
