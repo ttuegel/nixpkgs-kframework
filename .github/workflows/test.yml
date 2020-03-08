@@ -13,4 +13,4 @@ jobs:
         name: ttuegel
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         file: 'release.nix'
-        attributes: 'k'
+        attributes: 'kframework.k'

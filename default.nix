@@ -9,12 +9,14 @@ in
 
   mvnix = self.mavenix.cli;
 
-  k = import ./pkgs/k {
-    inherit (self) lib fetchurl fetchgit writeText;
-    inherit (self) makeWrapper;
-    inherit (self) flex gcc git gmp jdk mpfr pkgconfig python3 z3;
-    ocamlPackages = self.ocamlPackages_4_06_k;
-    inherit (self) mavenix;
+  kframework = {
+    k = import ./pkgs/k {
+      inherit (self) lib fetchurl fetchgit writeText;
+      inherit (self) makeWrapper;
+      inherit (self) flex gcc git gmp jdk mpfr pkgconfig python3 z3;
+      ocamlPackages = self.ocamlPackages_4_06_k;
+      inherit (self) mavenix;
+    };
   };
 
   ocamlPackages_4_06_k =
@@ -36,7 +38,8 @@ in
         self.ocaml-ng.ocamlPackages_4_06.overrideScope' addOcamlCompiler;
       addOcamlModules =
         import ./pkgs/development/ocaml-modules {
-          inherit (self) k secp256k1;
+          inherit (self.kframework) k;
+          inherit (self) secp256k1;
         };
     in
       ocamlPackages_4_06_k.overrideScope' addOcamlModules;
