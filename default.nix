@@ -26,7 +26,7 @@ in
           (import ./pkgs/development/compilers/ocaml/4.06.nix
             {
               flavor = "+k";
-              patches = self.k.patches.ocaml;
+              patches = self.kframework.k.patches.ocaml;
             }
           )
           {
