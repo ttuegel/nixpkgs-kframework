@@ -13,6 +13,4 @@ jobs:
         name: ttuegel
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         file: 'release.nix'
-        attributes:
-          - 'kframework.k'
-          - 'kframework.llvm-backend'
+        attributes: 'kframework.k' 'kframework.llvm-backend'
