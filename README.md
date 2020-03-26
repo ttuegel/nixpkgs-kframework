@@ -15,7 +15,7 @@ This overlay provides Nix expressions for these packages:
 To build standalone packages, select an attribute from `release.nix`:
 
 ```.sh
-nix build -f release.nix k
+nix build -f release.nix kframework.k
 ```
 
 To build all the packages this overlay provides (e.g. for testing):
@@ -48,5 +48,5 @@ Please see [ttuegel.cachix.org](https://ttuegel.cachix.org/) for instructions to
 
 # If the build fails,
 nix build -f release.nix mvnix
-./result/bin/mvnix-update -E '(import ./release.nix).k'
+./result/bin/mvnix-update -E '(import ./release.nix).kframework.k'
 ```
