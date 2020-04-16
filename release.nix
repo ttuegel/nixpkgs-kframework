@@ -8,7 +8,8 @@ in
 # not include transitive dependencies provided by Nixpkgs, which should be
 # tested upstream.
 {
-  inherit (nixpkgs) niv kframework mvnix secp256k1 z3;
+  inherit (nixpkgs) niv mvnix secp256k1 z3;
+  kframework = { inherit (nixpkgs.kframework) k; };
   ocamlPackages_4_06_k = nixpkgs.recurseIntoAttrs {
     inherit (nixpkgs.ocamlPackages_4_06_k)
       base bn128 configurator findlib mlgmp ocaml ocaml-protoc
