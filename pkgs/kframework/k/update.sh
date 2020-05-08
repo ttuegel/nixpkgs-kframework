@@ -60,6 +60,9 @@ git_rev_list $rev..HEAD | while read -l tag
         continue
     else
         # Increment version once only.
-        break
+        exit 0
     end
 end
+
+# Exit with failure code when nothing was updated.
+exit 1
