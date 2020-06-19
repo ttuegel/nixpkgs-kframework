@@ -11,9 +11,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v10
-    - uses: cachix/cachix-action@v5
+    - uses: cachix/cachix-action@v6
       with:
         name: ttuegel
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-        file: 'release.nix'
-        attributes: 'kframework'
+    - run: "nix-build release.nix -A kframework"
