@@ -43,6 +43,7 @@ in
 
 mavenix.buildMaven {
   name = "${pname}-${version}";
+  inherit pname version;
   inherit src;
   infoFile = ./mavenix.lock;
   doCheck = false;

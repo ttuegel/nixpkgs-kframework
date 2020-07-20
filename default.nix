@@ -21,7 +21,10 @@ in
     llvm-backend =
       self.callPackage
         (import ./pkgs/kframework/llvm-backend
-          { src = "${self.kframework.k.src}/llvm-backend/src/main/native/llvm-backend"; }
+          {
+            src = "${self.kframework.k.src}/llvm-backend/src/main/native/llvm-backend";
+            inherit (self.kframework.k) version;
+          }
         )
         { llvmPackages = self.llvmPackages_9; };
   };

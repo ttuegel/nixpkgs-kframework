@@ -1,4 +1,4 @@
-{ src }:
+{ src, version }:
 {
   lib, stdenv,
   cmake, flex, pkgconfig,
@@ -8,10 +8,11 @@
 
 let
   inherit (llvmPackages) llvm clang;
+  pname = "llvm-backend";
 in
 
 stdenv.mkDerivation {
-  name = "llvm-backend";
+  inherit pname version;
   inherit src;
 
   nativeBuildInputs = [ cmake clang flex llvm pkgconfig ];
