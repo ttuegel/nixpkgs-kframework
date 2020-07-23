@@ -1,7 +1,10 @@
 {
   "url": "https://github.com/kframework/k",
-  "rev": "d10c70c7118d33b77ef55252a83b4f8c3d9ac09c",
-  "date": "2020-07-20T18:22:09-05:00",
-  "sha256": "0h5dnjqnl2ch3756r9i7fy1sxdpnz3xkqkhw3zmar2rx80ln8z2x",
-  "fetchSubmodules": true
+  "rev": "bbc70cb7ef4c2a283ab9acc091ccf73597e475c4",
+  "date": "2020-07-21T11:50:39-05:00",
+  "path": "/nix/store/zs7z72zpjg65gryqc0dzg56jz833nnvm-k-bbc70cb",
+  "sha256": "1gcn88k27m3bhsdpgfrk7rldq50b2006i8bgm7mmxss8hsfsn4dg",
+  "fetchSubmodules": true,
+  "deepClone": false,
+  "leaveDotGit": false
 }
