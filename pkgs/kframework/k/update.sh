@@ -6,6 +6,9 @@ if test (git status --porcelain | wc -l) -ne 0
     exit 1
 end
 
+set llvm_backend_url "https://github.com/kframework/llvm-backend.git"
+set haskell_backend_url "https://github.com/kframework/kore.git"
+
 jq -r .owner <repo.json | read -l owner
 jq -r .repo <repo.json | read -l repo
 jq -r .pname <name.json | read -l pname
@@ -42,7 +45,11 @@ end
 
 git_rev_list $rev..HEAD | while read -l tag
     echo -s '{"pname":"' $pname '","tag":"' $tag '"}' >name.json
+    git add name.json
+
     nix-prefetch-git --url $url --rev $tag --fetch-submodules >src.json
+    git add src.json
+
     for patch_json in *.patch.json
         jq -r .file <$patch_json | read -l file
         echo -s >$patch_json \
@@ -52,7 +59,20 @@ git_rev_list $rev..HEAD | while read -l tag
             '"sha256":"' (nix_sha256 $src/$file) '"' \
             '}'
     end
-    git add src.json name.json *.patch.json
+    git add *.patch.json
+
+    pushd $src/llvm-backend/src/main/native/llvm-backend
+    set llvm_backend_rev (git show-ref -s HEAD)
+    popd
+    nix-prefetch-git --url $llvm_backend_url --rev $llvm_backend_rev --fetch-submodules >src-llvm-backend.json
+    git add src-llvm-backend.json
+
+    pushd $src/haskell-backend/src/main/native/haskell-backend
+    set haskell_backend_rev (git show-ref -s HEAD)
+    popd
+    nix-prefetch-git --url $haskell_backend_url --rev $haskell_backend_rev --fetch-submodules >src-haskell-backend.json
+    git add src-haskell-backend.json
+
     git commit -m (echo $owner'/'$repo $tag)
 
     if test $tag = $rev

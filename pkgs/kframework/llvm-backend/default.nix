@@ -1,6 +1,5 @@
-{ src, version }:
 {
-  lib, stdenv,
+  lib, stdenv, fetchgit,
   cmake, flex, pkgconfig,
   llvmPackages,
   boost, gmp, jemalloc, libffi, libyaml, mpfr,
@@ -9,6 +8,14 @@
 let
   inherit (llvmPackages) llvm clang;
   pname = "llvm-backend";
+in
+
+let
+  srcJSON = lib.importJSON ../k/src-llvm-backend.json;
+  src = fetchgit {
+    inherit (srcJSON) url rev sha256 fetchSubmodules;
+  };
+  version = "0-${lib.substring 0 8 srcJSON.rev}";
 in
 
 stdenv.mkDerivation {
