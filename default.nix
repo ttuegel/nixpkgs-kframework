@@ -21,6 +21,11 @@ in
     llvm-backend = self.callPackage ./pkgs/kframework/llvm-backend {
       llvmPackages = self.llvmPackages_9;
     };
+
+    haskell-backend = import ./pkgs/kframework/haskell-backend {
+      inherit (self) lib fetchgit;
+    };
+
   };
 
   ocamlPackages_4_06_k =

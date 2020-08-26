@@ -9,7 +9,7 @@ in
 # tested upstream.
 {
   inherit (nixpkgs) niv mvnix secp256k1 z3;
-  kframework = { inherit (nixpkgs.kframework) k llvm-backend; };
+  kframework = { inherit (nixpkgs.kframework) k haskell-backend llvm-backend; };
   ocamlPackages_4_06_k = nixpkgs.recurseIntoAttrs {
     inherit (nixpkgs.ocamlPackages_4_06_k)
       base bn128 configurator findlib mlgmp ocaml ocaml-protoc
