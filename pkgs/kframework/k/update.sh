@@ -31,10 +31,6 @@ function git_log_1
     git_ log --max-count=1 --format=%H $argv
 end
 
-function git_show_ref
-    git_ show-ref -s $argv
-end
-
 function git_rev_list
     git_ rev-list --reverse $argv
 end
