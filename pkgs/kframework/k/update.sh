@@ -35,6 +35,10 @@ function git_rev_list
     git_ rev-list --reverse $argv
 end
 
+function git_rev_parse
+    git_ rev-parse $argv
+end
+
 function nix_sha256
     nix-hash --flat --base32 --type sha256 $argv
 end
@@ -43,7 +47,8 @@ git_rev_list $rev..HEAD | while read -l tag
     echo -s '{"pname":"' $pname '","tag":"' $tag '"}' >name.json
     git add name.json
 
-    nix-prefetch-git --url $url --rev $tag --fetch-submodules >src.json
+    set tag_rev (git_rev_parse $tag)
+    nix-prefetch-git --url $url --rev $tag_rev --fetch-submodules >src.json
     git add src.json
 
     for patch_json in *.patch.json
