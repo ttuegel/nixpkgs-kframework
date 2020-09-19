@@ -39,6 +39,10 @@ function git_rev_parse
     git_ rev-parse $argv
 end
 
+function git_rev_parse_submodule
+    git_ ls-tree $argv[1]:$argv[2] | awk "\$2 == \"commit\" && \$4 == \"$argv[3]\" { print \$3 }"
+end
+
 function nix_sha256
     nix-hash --flat --base32 --type sha256 $argv
 end
@@ -62,15 +66,11 @@ git_rev_list $rev..HEAD | while read -l tag
     end
     git add *.patch.json
 
-    pushd $src/llvm-backend/src/main/native/llvm-backend
-    set llvm_backend_rev (git show-ref -s HEAD)
-    popd
+    set llvm_backend_rev (git_rev_parse_submodule $tag_rev llvm-backend/src/main/native llvm-backend)
     nix-prefetch-git --url $llvm_backend_url --rev $llvm_backend_rev --fetch-submodules >src-llvm-backend.json
     git add src-llvm-backend.json
 
-    pushd $src/haskell-backend/src/main/native/haskell-backend
-    set haskell_backend_rev (git show-ref -s HEAD)
-    popd
+    set haskell_backend_rev (git_rev_parse_submodule $tag_rev haskell-backend/src/main/native haskell-backend)
     nix-prefetch-git --url $haskell_backend_url --rev $haskell_backend_rev --fetch-submodules >src-haskell-backend.json
     git add src-haskell-backend.json
 
