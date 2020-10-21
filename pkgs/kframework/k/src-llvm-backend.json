@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/kframework/llvm-backend.git",
-  "rev": "239c820fa31bb9ac286d919a43547ed94e7db1ef",
-  "date": "2020-10-16T08:21:30-05:00",
-  "path": "/nix/store/xfbslvnb5mc8v8kdf0cqmmnq5yh2s78n-llvm-backend-239c820",
-  "sha256": "1fxcdgqxq1wawy5w6vzphd4d8l24jzd258r0y3h2qff9d0pv6jyp",
+  "rev": "4a37f2fb6b174fe4bf54d166661ff73afe2e629c",
+  "date": "2020-10-19T10:57:35-05:00",
+  "path": "/nix/store/jh74ay8qb0lyzr4zwgma2xlvswjyv0r0-llvm-backend-4a37f2f",
+  "sha256": "040pc1aywlyq2yrbf03qb4fgrf5bajl4aj4rbvnkxnlac3fwd5z8",
   "fetchSubmodules": true,
   "deepClone": false,
   "leaveDotGit": false
