@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/kframework/kore.git",
-  "rev": "34acb288b5c0ec734be2b133b6d9f23b36652ef2",
-  "date": "2020-12-17T01:30:42-06:00",
-  "path": "/nix/store/9cpxynn370cv1pzkajbh5aj8qjidjd3b-kore-34acb28",
-  "sha256": "1z33x5jcffcmj3w027va6nxbsy0qdxhwk5xnclwfs8f9b65vfhqw",
+  "rev": "770f15d72a8e8f3f364ed666e8c193a198852c88",
+  "date": "2020-12-17T18:51:15-06:00",
+  "path": "/nix/store/nw1q3img47k72bmp45lz7v0maa7lr6g9-kore-770f15d",
+  "sha256": "1l7qmmx48nrliz04gvy74nb4di26z50jq168m63c8yxq4y3avj9a",
   "fetchSubmodules": true,
   "deepClone": false,
   "leaveDotGit": false
