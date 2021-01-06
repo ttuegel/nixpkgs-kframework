@@ -1,3 +1,5 @@
+**Read-only:** The Nix expressions for the K Framework have moved [upstream](https://github.com/kframework/k).
+
 # nixpkgs-kframework
 
 Nixpkgs overlay for [K Framework](https://github.com/kframework) packages.
